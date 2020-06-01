@@ -1,40 +1,105 @@
 autoUpdate:
   enabled: true
-  schedule: '0 0 * * *'
+  schedule: 0 0 * * *
+bootConfigURL: https://github.com/cloudbees/arcalos-boot-config.git
 cluster:
-  clusterName: ""
-  environmentGitOwner: ""
-  project: ""
+  azure: {}
+  chartRepository: http://bucketrepo/bucketrepo/charts/
+  clusterName: voicelie
+  environmentGitOwner: dorrab-env-repos
+  environmentGitPublic: true
+  externalDNSSAName: voicelie-dn
+  gitKind: github
+  gitName: github
+  gitPublic: true
+  gitServer: https://github.com
+  gke:
+    projectNumber: "132088280350"
+  kanikoSAName: voicelie-ko
+  namespace: jx
+  project: cbjx-voicelie
   provider: gke
-  zone: ""
-gitops: true
-githubApp:
-  enabled: false
-  url: ""
-  schedule: '0 0 * * *'
+  registry: gcr.io
+  vaultName: voicelie
+  vaultSAName: voicelie-vt
+  zone: us-central1-c
 environments:
-- key: dev
-- key: staging
-- key: production
+- ingress:
+    cloud_dns_secret_name: external-dns-gcp-sa
+    domain: cbjx-voicelie.jxaas.live
+    domainIssuerURL: https://jx-tenant-service-jx.mgmt.jxaas.live
+    externalDNS: true
+    namespaceSubDomain: -jx.
+    tls:
+      email: jenkins-x@cloudbees.com
+      enabled: true
+      production: true
+  key: dev
+  repository: environment-voicelie-dev
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: staging
+  repository: environment-voicelie-staging
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: production
+  repository: environment-voicelie-production
+githubApp:
+  enabled: true
+  schedule: 0 0 * * *
+  url: https://lighthouse-githubapp-jx.mgmt.jxaas.live
+gitops: true
 ingress:
-  domain: ""
+  cloud_dns_secret_name: external-dns-gcp-sa
+  domain: cbjx-voicelie.jxaas.live
+  domainIssuerURL: https://jx-tenant-service-jx.mgmt.jxaas.live
   externalDNS: true
+  namespaceSubDomain: -jx.
   tls:
     email: jenkins-x@cloudbees.com
     enabled: true
-    production: false
+    production: true
 kaniko: true
+repository: bucketrepo
 secretStorage: vault
 storage:
+  backup:
+    enabled: true
+    url: gs://cbjx-voicelie-backup
   logs:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://cbjx-voicelie-lts
   reports:
     enabled: false
     url: ""
   repository:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://cbjx-voicelie-repository
+vault:
+  aws: {}
+  bucket: cbjx-voicelie-vault
+  key: voicelie-5c609bff16d2-crypto-key
+  keyring: voicelie-5c609bff16d2-keyring
+  name: voicelie
+  serviceAccount: voicelie-vt
 velero:
   namespace: velero
-webhook: prow
+  schedule: ""
+  serviceAccount: voicelie-vo
+  ttl: ""
+versionStream:
+  ref: v0.0.445
+  url: https://github.com/cloudbees/arcalos-jenkins-x-versions.git
+webhook: lighthouse

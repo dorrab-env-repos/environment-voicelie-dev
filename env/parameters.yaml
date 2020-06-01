@@ -1,0 +1,12 @@
+adminUser:
+  password: vault:voicelie/adminUser:password
+  username: admin
+dashboardUrl: https://dashboard.jxaas.live
+enableDocker: false
+pipelineUser:
+  email: arcalos-admin@googlegroups.com
+  token: vault:voicelie/pipelineUser:token
+  username: cloudbees-cloud-native-ci-cd[bot]
+prow:
+  hmacToken: vault:voicelie/prow:hmacToken
+segmentWriteKey: vault:voicelie:segmentWriteKey
