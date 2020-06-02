@@ -2,6 +2,8 @@ autoUpdate:
   enabled: true
   schedule: 0 0 * * *
 bootConfigURL: https://github.com/cloudbees/arcalos-boot-config.git
+buildPacks:
+  buildPackLibrary: {}
 cluster:
   azure: {}
   chartRepository: http://bucketrepo/bucketrepo/charts/
