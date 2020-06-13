@@ -102,6 +102,6 @@ velero:
   serviceAccount: voicelie-vo
   ttl: ""
 versionStream:
-  ref: v0.0.491
+  ref: v0.0.492
   url: https://github.com/cloudbees/arcalos-jenkins-x-versions.git
 webhook: lighthouse
